@@ -49,8 +49,8 @@ nano backend/.env
 Set at minimum:
 
 - `JWT_SECRET_KEY` — e.g. `openssl rand -hex 32`
-- `FRONTEND_APP_URL` — public URL users open (e.g. `http://206.189.140.76` or `https://gstrecon.example.com`)
-- `CORS_ORIGINS` — same origin as above
+- `FRONTEND_APP_URL` — `http://206.189.140.76` (or your domain when using HTTPS)
+- `CORS_ORIGINS` — `http://206.189.140.76`
 - `PLATFORM_ADMIN_EMAIL` / `PLATFORM_ADMIN_PASSWORD` — first login only; password is **not** reset on redeploy
 
 ### Start
