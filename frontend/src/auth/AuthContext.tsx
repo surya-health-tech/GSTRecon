@@ -121,7 +121,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         storeTokens(res.access_token, res.refresh_token);
         qc.clear();
         await refreshMe();
-        navigate("/app/dashboard", { replace: true });
+        navigate("/app", { replace: true });
       } finally {
         setStartingTenantPortal(false);
       }

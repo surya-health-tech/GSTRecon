@@ -38,7 +38,7 @@ export function FirmSignInCard({
     if (loading) return;
     if (!me) return;
     if (me.is_platform_super_admin && isPlatformTenantAccess(me)) {
-      navigate("/app/dashboard", { replace: true });
+      navigate("/app", { replace: true });
     } else if (me.is_platform_super_admin) {
       navigate("/platform", { replace: true });
     } else if (me.tenant_id) {
