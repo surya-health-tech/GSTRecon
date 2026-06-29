@@ -12,7 +12,13 @@ Repository: [github.com/surya-health-tech/GSTRecon](https://github.com/surya-hea
 | **backend** | FastAPI — runs migrations on start, stores uploads in Docker volume |
 | **db** | PostgreSQL 16 — data in Docker volume `gst_pg` |
 
-Default public port: **80** (configurable via `.env` → `HTTP_PORT`).
+Default public port: **80** via Ubuntu host nginx → Docker web on **127.0.0.1:8080**.
+
+If port 80 is already used by system nginx (common on Ubuntu), run once after deploy:
+
+```bash
+bash /opt/GSTRecon/deploy/setup-host-nginx.sh
+```
 
 ## First-time server setup
 
@@ -58,9 +64,10 @@ Set at minimum:
 ```bash
 cd /opt/GSTRecon
 bash deploy/deploy.sh
+bash deploy/setup-host-nginx.sh   # if Ubuntu nginx already uses port 80
 ```
 
-Open `FRONTEND_APP_URL` in a browser and sign in as platform admin.
+Open **http://206.189.140.76** in a browser and sign in as platform admin.
 
 ## Redeploy (after code changes)
 
