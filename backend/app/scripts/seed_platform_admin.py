@@ -55,7 +55,13 @@ def main() -> None:
         admin.full_name = name
         admin.is_platform_super_admin = True
         admin.is_active = True
-        admin.hashed_password = hash_password(password)
+        force_reset = os.environ.get("FORCE_RESET_PLATFORM_ADMIN_PASSWORD", "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+        )
+        if force_reset:
+            admin.hashed_password = hash_password(password)
         db.commit()
         print(f"Platform admin ready: {admin.email}")
     finally:
