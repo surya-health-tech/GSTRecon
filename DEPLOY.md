@@ -17,15 +17,15 @@ Best when all apps share **`206.189.140.76`** and each uses its own port.
 In `/opt/GSTRecon/.env`:
 
 ```env
-HTTP_PORT=8080
+HTTP_PORT=8092
 WEB_BIND=0.0.0.0
 ```
 
 In `/opt/GSTRecon/backend/.env`:
 
 ```env
-FRONTEND_APP_URL=http://206.189.140.76:8080
-CORS_ORIGINS=http://206.189.140.76:8080
+FRONTEND_APP_URL=http://206.189.140.76:8092
+CORS_ORIGINS=http://206.189.140.76:8092
 ```
 
 Deploy:
@@ -34,9 +34,9 @@ Deploy:
 bash /opt/GSTRecon/deploy/deploy.sh
 ```
 
-Open: **http://206.189.140.76:8080/login**
+Open: **http://206.189.140.76:8092/login**
 
-Ensure DigitalOcean firewall allows **TCP 8080** (in addition to 80/443).
+Ensure DigitalOcean firewall allows **TCP 8092**. Port **8080** is often already used by other apps on this server.
 
 ### Option B — Subdomain on port 80 (recommended with DNS)
 
