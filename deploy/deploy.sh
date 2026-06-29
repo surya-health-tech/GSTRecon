@@ -40,14 +40,14 @@ docker compose -f "$COMPOSE_FILE" ps
 echo "==> Pruning dangling images..."
 docker image prune -f >/dev/null 2>&1 || true
 
-HTTP_PORT="$(grep -E '^HTTP_PORT=' .env 2>/dev/null | cut -d= -f2- || echo 8080)"
-if ss -tlnp 2>/dev/null | grep -q ':80 .*nginx' && ! docker compose -f "$COMPOSE_FILE" ps web 2>/dev/null | grep -q 'Up'; then
-  echo ""
-  echo "NOTE: Host nginx is using port 80. Run: bash deploy/setup-host-nginx.sh"
-fi
+HTTP_PORT="$(grep -E '^HTTP_PORT=' .env 2>/dev/null | cut -d= -f2- | tr -d '\r' || echo 8080)"
+WEB_BIND="$(grep -E '^WEB_BIND=' .env 2>/dev/null | cut -d= -f2- | tr -d '\r' || echo 127.0.0.1)"
 
 echo ""
 echo "Deploy complete."
-echo "  App URL: http://206.189.140.76 (after setup-host-nginx.sh if needed)"
-echo "  Docker web listens on 127.0.0.1:${HTTP_PORT:-8080}"
-echo "  Logs:    docker compose -f $COMPOSE_FILE logs -f --tail=100"
+if [[ "$WEB_BIND" == "0.0.0.0" ]]; then
+  echo "  App URL: http://206.189.140.76:${HTTP_PORT}/login"
+else
+  echo "  Docker web: 127.0.0.1:${HTTP_PORT} (use setup-host-nginx.sh with SERVER_NAME for port 80)"
+fi
+echo "  Logs: docker compose -f $COMPOSE_FILE logs -f --tail=100"
